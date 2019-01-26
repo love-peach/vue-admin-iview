@@ -5,6 +5,7 @@
 const fs = require('fs');
 const path = require('path');
 
+// TODO: 控制页面目录
 const pagePath = path.join(__dirname, './src/views');
 const imports = [];
 const routesNames = [];
@@ -26,17 +27,17 @@ function getRoutes(filePath, fileName, modulesName) {
     }
   } else if (fileName === 'routes.js') {
     let pathName = filePath.replace(pagePath, '');
-    let routesPath = `./views${pathName}`;
+
+    // TODO: 控制选择文件的路径
+    let routesPath = `../views${pathName}`;
 
     if (process.platform.indexOf('win') >= 0) {
       routesPath = routesPath.replace(/\\/g, '/');
     }
-    console.log(pathName, 'pathName');
 
     pathName = pathName.replace('.js', '');
     pathName = pathName.split('/');
     routesPath = routesPath.replace('.js', '');
-    console.log(routesPath);
 
     modulesName = `${`${modulesName}`.replace(/-/g, '_')}`;
     routesNames.push(modulesName);
@@ -45,8 +46,10 @@ function getRoutes(filePath, fileName, modulesName) {
 }
 
 getRoutes(pagePath);
-let fileString = imports.join('\n');
+let fileString = '/* eslint-disable */\n';
+fileString += imports.join('\n');
 fileString += '\n\nexport default [].concat(\n  ';
 fileString += routesNames.join(',\n  ');
 fileString += ',\n);\n';
-fs.writeFileSync(path.join(__dirname, './src/allRoutes.js'), fileString);
+// TODO: 控制导出文件的路径
+fs.writeFileSync(path.join(__dirname, './src/router/moduleRoutes.js'), fileString);

@@ -5,8 +5,8 @@ module.exports = {
       'import',
       {
         libraryName: 'iview',
-        libraryDirectory: 'src/components'
-      }
-    ]
-  ]
+        libraryDirectory: 'src/components',
+      },
+    ],
+  ],
 };

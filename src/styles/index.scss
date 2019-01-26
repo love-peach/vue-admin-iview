@@ -1,0 +1,14 @@
+// 外部插件样式 比如 reset normalize 之类的
+@import './vendor/normalize';
+
+// 公用基本样式 比如 全局变量 Variable Mixins Placeholders 之类的
+@import './base/variables';
+@import './base/mixins';
+@import './base/placeholders';
+@import './base/common';
+
+// 项目框架样式 比如 布局样式 栅格 之类的
+@import './framework/layout';
+
+// 独立功能样式 比如 按钮样式 动画样式 之类的
+@import './modules/animate';

@@ -1,0 +1,52 @@
+
+
+.app-layout {
+  height: 100%;
+}
+
+.app-layout-left {
+  float: left;
+  width: $widthMenu;
+  height: 100%;
+  overflow: hidden;
+  transition: width .3s ease;
+  background-color: $layout-sider-background;
+}
+.app-layout-left.collapsed {
+  width: $widthMenuCollapsed;
+}
+
+.app-layout-left-inside {
+  overflow-y: scroll;
+  margin-right: -18px;
+  height: 100%;
+  padding-top: .1px;
+  margin-top: -.1px;
+}
+
+.app-layout-right {
+  margin-left: $widthMenu;
+  height: 100%;
+  overflow-x: hidden;
+  transition: margin .3s ease;
+}
+.app-layout-right.collapsed {
+  margin-left: $widthMenuCollapsed;
+}
+
+.app-layout-main-wrap {
+  height: calc(100% - 60px);
+  overflow: hidden;
+}
+
+.app-layout-right-content-tab {
+  height: 40px;
+  background-color: beige;
+}
+
+.app-layout-right-content-main {
+  padding: 20px;
+  height: calc(100% - 40px);
+  background-color: #f5f7f9;
+  overflow: auto;
+}
