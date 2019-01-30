@@ -1,7 +1,7 @@
 import AppHeader from '@/components/framework/app-header/';
 import AppMenu from '@/components/framework/app-menu/';
 
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'AppLayout',
@@ -16,5 +16,16 @@ export default {
     key() {
       return this.$route.fullPath;
     },
+  },
+  watch: {
+    $route(newRoute) {
+      this.setBreadCrumb(newRoute);
+    },
+  },
+  mounted() {
+    this.setBreadCrumb(this.$route);
+  },
+  methods: {
+    ...mapMutations('menu', ['setBreadCrumb']),
   },
 };

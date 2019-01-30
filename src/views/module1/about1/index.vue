@@ -5,8 +5,5 @@
 <script>
 export default {
   name: 'M1About1',
-  mounted() {
-    console.log(this.$route.meta.btnPermissionsList, '0');
-  },
 };
 </script>

@@ -3,6 +3,8 @@ import menuTree from '@/router/demo.json';
 import { AppLayout } from '@/router/pagesComponents';
 import menuConponentsTable from '@/router/menuConponentsTable';
 
+import { getBreadCrumbList } from '@/libs/util';
+
 const menu = {
   namespaced: true,
   state: {
@@ -10,6 +12,7 @@ const menu = {
     menuTreeOriginal: [], // 菜单树结构 源数据
     menuTreeList: [], // 菜单树结构 处理后的结构 需要动态添加的路由中去
     isFinishedRouteAdd: false,
+    breadCrumbList: [],
   },
   getters: {
     menuTreeList: state => {
@@ -32,10 +35,12 @@ const menu = {
     toggleFinishedRouteAddStatus(state, data) {
       state.isFinishedRouteAdd = data;
     },
+    setBreadCrumb(state, route) {
+      state.breadCrumbList = getBreadCrumbList(route);
+    },
   },
   actions: {
     getMenuTreeOriginal({ commit }) {
-      console.log('456');
       return new Promise(resolve => {
         setTimeout(() => {
           commit('setMenuTreeOriginal', menuTree.data);
@@ -44,9 +49,7 @@ const menu = {
       });
     },
     async generateRoutes({ state, commit, dispatch }) {
-      console.log('123');
       await dispatch('getMenuTreeOriginal');
-      console.log('789');
 
       const menuTreeList = state.menuTreeOriginal.map(item => ({
         path: item.url,
@@ -54,6 +57,9 @@ const menu = {
         icon: 'ios-analytics',
         title: item.text,
         component: AppLayout,
+        meta: {
+          title: item.text,
+        },
         // 判断一级菜单是否有子菜单
         children: item.childrens
           ? item.childrens.map(child => ({
@@ -63,13 +69,13 @@ const menu = {
               title: child.text,
               component: menuConponentsTable[`${item.url}${child.url}`],
               meta: {
+                title: child.text,
                 // 判断子菜单是否有按钮级别的控制
                 btnPermissionsList: child.childrens ? child.childrens.map(btn => btn) : [],
               },
             }))
           : [],
       }));
-      console.log('000');
 
       commit('setMenuTreeList', menuTreeList);
     },

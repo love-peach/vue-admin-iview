@@ -36,40 +36,39 @@ const whiteList = ['/login', '/locking', '/demo/demo_list', '/demo/demo_desc'];
 
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start();
-
   if (storaage.getToken()) {
     if (to.path === '/login') {
-      next({ path: '/home' });
+      if (from.path === '/home') {
+        iView.LoadingBar.finish();
+      }
+      return next('/home');
     }
-
     if (!store.getters['menu/finishedRouteAddStatus']) {
-      store
+      return store
         .dispatch('menu/generateRoutes')
         .then(() => {
           // 生成可访问的路由表
-          console.log(to, 'totototot0');
           let syncRoute = [...store.getters['menu/menuTreeList'], { path: '*', redirect: '/404', hidden: true }];
-          console.log(syncRoute, 'syncRoute');
           router.addRoutes(syncRoute); // 动态添加可访问路由表
           store.commit('menu/toggleFinishedRouteAddStatus', true);
           next({ ...to, replace: true }); // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
         })
         .catch(err => {
-          console.log(err, '路由处理错误');
+          console.log('路由动态添加出错', err);
           next('/');
         });
+    } else {
+      return next();
     }
   } else {
     console.log('没有登录');
     if (whiteList.indexOf(to.path) !== -1) {
       // 在免登录白名单，直接进入
-      next();
+      return next();
     } else {
-      next('/login'); // 否则全部重定向到登录页
+      return next('/login'); // 否则全部重定向到登录页
     }
   }
-
-  next();
 });
 
 router.afterEach(() => {

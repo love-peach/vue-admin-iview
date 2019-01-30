@@ -14,6 +14,8 @@ import {
   Dropdown,
   DropdownMenu,
   DropdownItem,
+  Breadcrumb,
+  BreadcrumbItem,
 } from 'iview';
 
 Vue.component('Button', Button);
@@ -30,6 +32,8 @@ Vue.component('Tooltip', Tooltip);
 Vue.component('Dropdown', Dropdown);
 Vue.component('DropdownMenu', DropdownMenu);
 Vue.component('DropdownItem', DropdownItem);
+Vue.component('Breadcrumb', Breadcrumb);
+Vue.component('BreadcrumbItem', BreadcrumbItem);
 
 // import 'iview/dist/styles/iview.css';
 import './iview.less';

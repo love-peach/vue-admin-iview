@@ -11,9 +11,7 @@
         <div class="app-layout-right-content-tab">tab-list</div>
         <div class="app-layout-right-content-main">
           <transition name="slide-fade" mode="out-in">
-            <keep-alive>
-              <router-view :key="key"></router-view>
-            </keep-alive>
+            <router-view :key="key"></router-view>
           </transition>
         </div>
       </div>
