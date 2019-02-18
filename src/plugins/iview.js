@@ -16,6 +16,8 @@ import {
   DropdownItem,
   Breadcrumb,
   BreadcrumbItem,
+  Tag,
+  Modal,
 } from 'iview';
 
 Vue.component('Button', Button);
@@ -34,6 +36,8 @@ Vue.component('DropdownMenu', DropdownMenu);
 Vue.component('DropdownItem', DropdownItem);
 Vue.component('Breadcrumb', Breadcrumb);
 Vue.component('BreadcrumbItem', BreadcrumbItem);
+Vue.component('Tag', Tag);
+Vue.component('Modal', Modal);
 
 // import 'iview/dist/styles/iview.css';
 import './iview.less';

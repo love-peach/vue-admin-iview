@@ -6,6 +6,7 @@ const store = {};
 // 本地local存储 方法名与key值对应表
 const storeListLocal = {
   Token: 'token', // token
+  TabList: 'tabList', // 已经打开的链接 tab
 };
 
 // 本地session存储 方法名与key值对应表

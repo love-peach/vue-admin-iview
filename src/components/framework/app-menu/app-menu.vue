@@ -2,7 +2,7 @@
   <div class="menu-wrap">
     <div v-show="!collapsed" class="text-center" style="font-size: 2em;">Logo</div>
     <div v-show="collapsed" class="text-center" style="font-size: 1em;">Logo</div>
-    <Menu theme="dark" width="auto" v-show="!collapsed">
+    <Menu ref="menu" theme="dark" :active-name="activeName" :open-names="openedNames" :accordion="accordion" width="auto" v-show="!collapsed">
       <template v-for="item in menuList">
         <app-menu-item
           v-if="item.children && item.children.length > 0"

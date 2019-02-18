@@ -3,7 +3,18 @@ import menuTree from '@/router/demo.json';
 import { AppLayout } from '@/router/pagesComponents';
 import menuConponentsTable from '@/router/menuConponentsTable';
 
-import { getBreadCrumbList } from '@/libs/util';
+import { getBreadCrumbList, routeHasExist, routeEqual, getNextRoute } from '@/libs/util';
+import storage from '@/libs/storage';
+
+import router from '@/router';
+
+const closePage = (state, route) => {
+  const nextRoute = getNextRoute(state.tabList, route);
+  state.tabList = state.tabList.filter(item => {
+    return !routeEqual(item, route);
+  });
+  router.push(nextRoute);
+};
 
 const menu = {
   namespaced: true,
@@ -13,6 +24,7 @@ const menu = {
     menuTreeList: [], // 菜单树结构 处理后的结构 需要动态添加的路由中去
     isFinishedRouteAdd: false,
     breadCrumbList: [],
+    tabList: [],
   },
   getters: {
     menuTreeList: state => {
@@ -37,6 +49,40 @@ const menu = {
     },
     setBreadCrumb(state, route) {
       state.breadCrumbList = getBreadCrumbList(route);
+    },
+    setTagNavList(state, list) {
+      let tabList = [];
+      if (list) {
+        tabList = [...list];
+      } else {
+        tabList = storage.getTabList() || [];
+      }
+      if (tabList[0] && tabList[0].name !== 'home') {
+        tabList.shift();
+      }
+      let homeTagIndex = tabList.findIndex(item => item.name === 'home');
+      if (homeTagIndex > 0) {
+        let homeTag = tabList.splice(homeTagIndex, 1)[0];
+        tabList.unshift(homeTag);
+      }
+      state.tabList = tabList;
+      storage.setTabList([...tabList]);
+    },
+    closeTag(state, route) {
+      let tag = state.tabList.filter(item => routeEqual(item, route));
+      route = tag[0] ? tag[0] : null;
+      if (!route) return;
+      closePage(state, route);
+    },
+    addTab(state, { route, type = 'unshift' }) {
+      if (!routeHasExist(state.tabList, route)) {
+        if (type === 'push') state.tabList.push(route);
+        else {
+          if (route.name === 'home') state.tabList.unshift(route);
+          else state.tabList.splice(1, 0, route);
+        }
+        storage.setTabList([...state.tabList]);
+      }
     },
   },
   actions: {
