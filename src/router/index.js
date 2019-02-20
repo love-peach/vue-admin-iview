@@ -28,6 +28,7 @@ const routes = [
 ];
 
 const router = new Router({
+  mode: 'history',
   routes,
 });
 

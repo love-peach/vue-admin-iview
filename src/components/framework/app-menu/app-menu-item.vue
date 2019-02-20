@@ -9,7 +9,7 @@
         <app-menu-item :key="`menu-${item.name}`" :parent-item="item"></app-menu-item>
       </template>
       <template v-else>
-        <menu-item :name="item.name" :key="`menu-${item.name}`" :to="{ path: item.path }">
+        <menu-item :name="item.name" :key="`menu-${item.name}`" :to="{ path: item.path, query: item.query }">
           <span>{{ item.title }}</span>
         </menu-item>
       </template>

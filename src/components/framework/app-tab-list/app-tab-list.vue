@@ -11,8 +11,8 @@
         </DropdownMenu>
       </Dropdown>
     </div>
-    <ul v-show="visible" :style="{left: contextMenuLeft + 'px', top: contextMenuTop + 'px'}" class="contextmenu">
-      <li v-for="(item, key) of menuList" @click="handleTagsOption(key)" :key="key">{{item}}</li>
+    <ul v-show="visible" :style="{ left: contextMenuLeft + 'px', top: contextMenuTop + 'px' }" class="contextmenu">
+      <li v-for="(item, key) of menuList" @click="handleTagsOption(key)" :key="key">{{ item }}</li>
     </ul>
     <div class="btn-con left-btn">
       <Button type="text" @click="handleScroll(240)">
@@ -25,7 +25,7 @@
       </Button>
     </div>
     <div class="scroll-outer" ref="scrollOuter" @DOMMouseScroll="handlescroll" @mousewheel="handlescroll">
-      <div ref="scrollBody" class="scroll-body" :style="{left: tagBodyLeft + 'px'}">
+      <div ref="scrollBody" class="scroll-body" :style="{ left: tagBodyLeft + 'px' }">
         <transition-group name="taglist-moving-animation">
           <Tag
             type="dot"
@@ -39,7 +39,8 @@
             :closable="item.name !== 'home'"
             :color="isCurrentTag(item) ? 'primary' : 'default'"
             @contextmenu.prevent.native="contextMenu(item, $event)"
-          >{{item.meta.title}}</Tag>
+            >{{ item.meta.title }}</Tag
+          >
         </transition-group>
       </div>
     </div>

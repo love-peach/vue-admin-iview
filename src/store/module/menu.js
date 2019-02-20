@@ -3,7 +3,7 @@ import menuTree from '@/router/demo.json';
 import { AppLayout } from '@/router/pagesComponents';
 import menuConponentsTable from '@/router/menuConponentsTable';
 
-import { getBreadCrumbList, routeHasExist, routeEqual, getNextRoute } from '@/libs/util';
+import { getBreadCrumbList, routeHasExist, routeEqual, getNextRoute, getQueryFromUrl } from '@/libs/util';
 import storage from '@/libs/storage';
 
 import router from '@/router';
@@ -109,8 +109,11 @@ const menu = {
         // 判断一级菜单是否有子菜单
         children: item.childrens
           ? item.childrens.map(child => ({
-              path: item.url + child.url,
+              path: (item.url + child.url).split('?')[0],
               name: item.url + child.url,
+              query: (item.url + child.url).split('?')[1]
+                ? getQueryFromUrl(`?${(item.url + child.url).split('?')[1]}`)
+                : '',
               icon: 'ios-analytics-outline',
               title: child.text,
               component: menuConponentsTable[`${item.url}${child.url}`],
