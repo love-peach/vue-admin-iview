@@ -13,6 +13,11 @@
 import api from '@/api/';
 export default {
   name: 'Home',
+  data() {
+    return {
+      value1: 20,
+    };
+  },
   mounted() {
     this.requestLogin();
   },
