@@ -1,5 +1,12 @@
 <template>
-  <div>home 页面 可以放 Dashboard</div>
+  <div>
+    home 页面 可以放 Dashboard
+    <br />
+    <br />
+    <br />
+    <br />
+    <Slider v-model="value1"></Slider>
+  </div>
 </template>
 
 <script>
