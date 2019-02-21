@@ -1,7 +1,7 @@
 <template>
   <Submenu :name="`${parentName}`">
     <template slot="title">
-      <common-icon :type="parentItem.icon || ''" />
+      <common-icon :type="parentItem.icon || 'ios-analytics'" />
       <span>{{ parentTitle }}</span>
     </template>
     <template v-for="item in children">
@@ -10,6 +10,7 @@
       </template>
       <template v-else>
         <menu-item :name="item.name" :key="`menu-${item.name}`" :to="{ path: item.path, query: item.query }">
+          <common-icon :type="item.icon || 'ios-analytics-outline'" />
           <span>{{ item.title }}</span>
         </menu-item>
       </template>

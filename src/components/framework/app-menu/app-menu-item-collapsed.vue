@@ -12,7 +12,7 @@
       @mouseover="handleMousemove($event, children)"
       :style="{ textAlign: !hideTitle ? 'left' : '' }"
     >
-      <common-icon :size="rootIconSize" :color="textColor" :type="parentItem.icon" />
+      <common-icon :size="rootIconSize" :color="textColor" :type="parentItem.icon || 'ios-analytics'" />
       <span class="menu-title" v-if="!hideTitle">{{ parentTitle }}</span>
       <Icon style="float: right;" v-if="!hideTitle" type="ios-arrow-forward" :size="16" />
     </a>
@@ -25,7 +25,7 @@
           :key="`drop-${item.name}`"
         ></app-menu-item-collapsed>
         <DropdownItem v-else :key="`drop-${item.name}`" :name="item.name">
-          <common-icon :size="iconSize" :type="item.icon" />
+          <common-icon :size="iconSize" :type="item.icon || 'ios-analytics-outline'" />
           <span class="menu-title">{{ item.title }}</span>
         </DropdownItem>
       </template>

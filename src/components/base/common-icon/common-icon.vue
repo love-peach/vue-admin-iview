@@ -17,6 +17,7 @@ export default {
   },
   computed: {
     iconType() {
+      console.log(this.type, '00');
       return this.type.indexOf('_') === 0 ? 'Icons' : 'Icon';
     },
     iconName() {

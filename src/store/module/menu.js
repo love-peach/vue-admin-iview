@@ -97,30 +97,30 @@ const menu = {
     async generateRoutes({ state, commit, dispatch }) {
       await dispatch('getMenuTreeOriginal');
 
-      const menuTreeList = state.menuTreeOriginal.map(item => ({
-        path: item.url,
-        name: item.url,
-        icon: 'ios-analytics',
+      const menuTreeList = state.menuTreeOriginal.map((item, index) => ({
+        path: item.url || `/${index}`,
+        name: item.url || `/${index}`,
+        icon: item.icon,
         title: item.text,
         component: AppLayout,
         meta: {
           title: item.text,
         },
         // 判断一级菜单是否有子菜单
-        children: item.childrens
-          ? item.childrens.map(child => ({
-              path: (item.url + child.url).split('?')[0],
-              name: item.url + child.url,
-              query: (item.url + child.url).split('?')[1]
-                ? getQueryFromUrl(`?${(item.url + child.url).split('?')[1]}`)
+        children: item.children
+          ? item.children.map(child => ({
+              path: ((item.url || `/${index}`) + child.url).split('?')[0],
+              name: (item.url || `/${index}`) + child.url,
+              query: ((item.url || `/${index}`) + child.url).split('?')[1]
+                ? getQueryFromUrl(`?${((item.url || '/' + index) + child.url).split('?')[1]}`)
                 : '',
-              icon: 'ios-analytics-outline',
+              icon: child.icon,
               title: child.text,
-              component: menuConponentsTable[`${item.url}${child.url}`],
+              component: menuConponentsTable[`${item.url || '/' + index}${child.url}`],
               meta: {
                 title: child.text,
                 // 判断子菜单是否有按钮级别的控制
-                btnPermissionsList: child.childrens ? child.childrens.map(btn => btn) : [],
+                btnPermissionsList: child.children ? child.children.map(btn => btn) : [],
               },
             }))
           : [],
